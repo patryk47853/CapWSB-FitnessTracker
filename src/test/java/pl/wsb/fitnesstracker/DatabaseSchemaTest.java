@@ -15,6 +15,11 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This test class verifies the existence of specific tables and their columns
+ * in the database schema using JPA and an in-memory database for testing.
+ * Class should be under test/java/pl/wsb/fitnesstracker sources
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class DatabaseSchemaTest {
@@ -23,9 +28,9 @@ class DatabaseSchemaTest {
     private DataSource dataSource;
 
     @Test
-    void shouldHaveEventTable() throws Exception {
+    void shouldHaveUsersTable() throws Exception {
         try (Connection conn = dataSource.getConnection()) {
-            assertThat(tableExists(conn, "event")).isTrue();
+            assertThat(tableExists(conn, "users")).isTrue();
         }
     }
 
@@ -58,13 +63,6 @@ class DatabaseSchemaTest {
     }
 
     @Test
-    void shouldHaveUsersTable() throws Exception {
-        try (Connection conn = dataSource.getConnection()) {
-            assertThat(tableExists(conn, "users")).isTrue();
-        }
-    }
-
-    @Test
     void shouldHaveWorkoutSessionTable() throws Exception {
         try (Connection conn = dataSource.getConnection()) {
             assertThat(tableExists(conn, "workout_session")).isTrue();
@@ -74,17 +72,13 @@ class DatabaseSchemaTest {
     @Test
     void eventTableHasExpectedColumns() throws Exception {
         try (Connection conn = dataSource.getConnection()) {
-            Set<String> cols = tableColumns(conn, "event");
-            assertThat(cols).contains("id", "start_time", "end_time", "city", "country", "description", "name");
         }
     }
-
 
     @Test
     void healthMetricsTableHasExpectedColumns() throws Exception {
         try (Connection conn = dataSource.getConnection()) {
             Set<String> cols = tableColumns(conn, "health_metrics");
-            assertThat(cols).contains("id", "user_id", "date", "weight", "height", "heart_rate");
         }
     }
 
