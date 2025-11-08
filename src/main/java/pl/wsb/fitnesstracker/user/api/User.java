@@ -3,13 +3,18 @@ package pl.wsb.fitnesstracker.user.api;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import pl.wsb.fitnesstracker.healthmetrics.HealthMetrics;
+import pl.wsb.fitnesstracker.statistics.api.Statistics;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
@@ -19,10 +24,10 @@ public class User {
     @Nullable
     private Long id;
 
-    @Column
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "birthdate", nullable = false)
@@ -31,55 +36,16 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public User(
-            final String firstName,
-            final String lastName,
-            final LocalDate birthdate,
-            final String email) {
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Statistics statistics;
 
-        this.birthdate = birthdate;
-        this.email = email;
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<HealthMetrics> healthMetrics;
 
-    @Nullable
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(@Nullable Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
+    public User(String firstName, String lastName, LocalDate birthdate, String email) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
     }
 }
-
