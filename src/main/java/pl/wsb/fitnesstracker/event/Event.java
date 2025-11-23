@@ -38,7 +38,4 @@ public class Event {
 
     @Column(nullable = false)
     private String city;
-
-    @OneToMany(mappedBy = "event")
-    private List<UserEvent> participants = new ArrayList<>();
 }
