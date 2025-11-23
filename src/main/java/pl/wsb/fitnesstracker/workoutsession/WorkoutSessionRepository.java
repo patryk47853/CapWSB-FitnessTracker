@@ -26,8 +26,8 @@ public class WorkoutSessionRepository {
     public void addWorkoutSession(WorkoutSession session) {
         String query = """
         INSERT INTO workout_session
-            (training_id, timestamp, start_latitude, start_longitude, end_latitude, end_longitude, altitude) 
-        VALUES 
+            (training_id, timestamp, start_latitude, start_longitude, end_latitude, end_longitude, altitude)
+        VALUES
             (:trainingId, :timestamp, :startLatitude, :startLongitude, :endLatitude, :endLongitude, :altitude)
         """;
 
