@@ -1,43 +1,41 @@
 package pl.wsb.fitnesstracker.workoutsession;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.wsb.fitnesstracker.training.api.Training;
 
-import java.time.LocalDateTime;
+/**
+ * Represents a workout session performed by a user.
 
+ * Contains information about the associated training, session timestamp,
+ * starting and ending location coordinates, and altitude.
+ *
+ */
 @Entity
 @Table(name = "workout_session")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 public class WorkoutSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "training_id", nullable = false)
     private Training training;
 
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    @Column(nullable = false)
+    private String timestamp;
 
-    @Column(name = "start_latitude", nullable = false)
     private double startLatitude;
-
-    @Column(name = "start_longitude", nullable = false)
     private double startLongitude;
 
-    @Column(name = "end_latitude")
-    private Double endLatitude;
+    private double endLatitude;
+    private double endLongitude;
 
-    @Column(name = "end_longitude")
-    private Double endLongitude;
-
-    @Column(name = "altitude")
-    private Double altitude;
-
+    private double altitude;
 }
