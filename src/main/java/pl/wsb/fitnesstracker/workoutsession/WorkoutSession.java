@@ -6,6 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.wsb.fitnesstracker.training.api.Training;
 
+/**
+ * Represents a workout session performed by a user.
+
+ * Contains information about the associated training, session timestamp,
+ * starting and ending location coordinates, and altitude.
+ *
+ */
 @Entity
 @Table(name = "workout_session")
 @Getter
