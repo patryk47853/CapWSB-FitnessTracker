@@ -6,9 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Represents an event that users can participate in.
+
+ * Contains information about the event's name, description, location, start and end times.
+ *
+ */
 @Entity
 @Table(name = "event")
 @Getter
@@ -25,10 +29,16 @@ public class Event {
 
     private String description;
 
+    /**
+     * The start date and time of the event.
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date startTime;
 
+    /**
+     * The end date and time of the event.
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date endTime;
