@@ -1,38 +1,44 @@
 package pl.wsb.fitnesstracker.event;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date startTime;
 
-    @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date endTime;
 
-    @Column(name = "country")
+    @Column(nullable = false)
     private String country;
 
-    @Column(name = "city")
+    @Column(nullable = false)
     private String city;
 
+    @OneToMany(mappedBy = "event")
+    private List<UserEvent> participants = new ArrayList<>();
 }
